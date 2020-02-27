@@ -4,7 +4,8 @@
 
 #include <stdint.h>
 #include <pic32mx.h>
-#include "mips.h"
+#include "declarations.h"
+#include "objects.h"
 
 //Declare some helper function for this file (funcs.c)
 static void num32asc(char* s, int );
@@ -91,7 +92,7 @@ void display_string(int line, char* s)
          s++;
       }
       else
-         textbuffer[line][1] = ' ';
+         textbuffer[line][i] = ' ';
 }
 
 //Displays a 32x32 image
@@ -114,7 +115,7 @@ void display_image(const int x, const uint8_t *data)
 
       //col is x axis of current row
       for(col = 0; col < 32; col++)
-         spi_send_recv(data[row*32 + col]);
+         spi_send_recv(~data[row*32 + col]);
    }
 }
 
@@ -165,12 +166,36 @@ char *strcopy(char* destination, char* source)
    return start;
 }
 
-void display_startscreen(void)
+void display_screen(const uint8_t *data)
 {
+   int row, col, bit;
+   int c;
+   //Textbuffer has 4 rows and 16 cols
+   for(row = 0; row < 4; row++)
+   {
+      DISPLAY_CMD_MODE;
+      spi_send_recv(0x22); //00100010
+      spi_send_recv(row);
+      spi_send_recv(0x0);
+      spi_send_recv(0x10);
 
+      DISPLAY_DATA_MODE;
+      for(col = 0; col < 128; col++)
+      {
+         spi_send_recv(startscreen[c]);
+      }
+   }
 }
 
-void display_ball() //Not sure which arguments
+void setPixel(int x, int y) //Not sure which arguments
+{
+   short offset = 0;
+   if(y > 0)
+      offset = y/8;
+   gamescreen[offset * 128 + x] << (y - offset * 8);
+}
+
+void display_clear(void)
 {
 
 }
