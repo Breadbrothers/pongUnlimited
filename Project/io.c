@@ -1,12 +1,13 @@
 #include <stdint.h>
 #include <pic32mx.h>
-#include "mips.h"
+#include "declarations.h"
 
 
 int getsw(void)
 {
    int SW = (PORTD >> 8) & 0x000f;
    return SW;
+
 }
 
 int getbtns(void)

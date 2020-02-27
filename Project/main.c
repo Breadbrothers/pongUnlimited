@@ -6,7 +6,8 @@
 
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include "mips.h"  /* Declatations for these labs */
+#include "declarations.h"  /* Declatations for these labs */
+#include "objects.h"
 
 int main(void) {
         /*
@@ -45,26 +46,21 @@ int main(void) {
 	/* SPI2STAT bit SPIROV = 0; */
 	SPI2STATCLR = 0x40;
 	/* SPI2CON bit CKP = 1; */
-        SPI2CONSET = 0x40;
+   SPI2CONSET = 0x40;
 	/* SPI2CON bit MSTEN = 1; */
 	SPI2CONSET = 0x20;
 	/* SPI2CON bit ON = 1; */
 	SPI2CONSET = 0x8000;
 
 	display_init();
-	display_string(0, "KTH/ICT lab");
-	display_string(1, "in Computer");
-	display_string(2, "Engineering");
-	display_string(3, "Welcome!");
-	display_update();
-
-	display_image(96, icon);
-
-	init(); /* Do any lab-specific initialization */
-
-	while( 1 )
+	init();
+	while(1)
 	{
-	  menu(); /* Do lab-specific things again and again */
+		//startscreen(); //Stay until button pressed, show highscore etc
+		menu(); //Stay in menu until button pressed, select mode
+		game(); //Stay in game until gameover
+		//gameover(); //Stay for a while to show score etc
 	}
+
 	return 0;
 }
