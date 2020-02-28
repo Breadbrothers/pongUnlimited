@@ -14,7 +14,7 @@ int btns;
 int scoreP1;
 int scoreP2;
 
-//Written by Jack
+//Written by
 void move_paddle(int btns)
 {
    if((paddle2.y != 24) && (btns & 0x1))
@@ -27,7 +27,7 @@ void move_paddle(int btns)
    if((paddle1.y != 0) && (btns & 0x8))
       paddle1.y = paddle1.y - 1;
 }
-//Written y Jack
+//Written by
 void set_paddle(Paddle p)
 {
    set_pixel(p.x, p.y);
@@ -38,7 +38,7 @@ void set_paddle(Paddle p)
    set_pixel(p.x, p.y + 5);
    set_pixel(p.x, p.y + 6);
 }
-//Written by Jack
+//Written by
 void set_ball(Ball b)
 {
    set_pixel(b.x, b.y);
@@ -46,7 +46,7 @@ void set_ball(Ball b)
    set_pixel(b.x, b.y + 1);
    set_pixel(b.x + 1, b.y + 1);
 }
-//Written by Jack
+//Written by
 void move_ball(void)
 {
    if((ball.y == 1) || (ball.y == 31))
@@ -63,7 +63,7 @@ void move_ball(void)
          PORTESET = 4;
    }
 
-   if(ball.x == 127)
+   if(ball.x == 126)
    {
       directionRight = !directionRight;
       scoreP1++;
@@ -101,7 +101,7 @@ void move_ball(void)
    else if(!directionUp)
       ball.y = ball.y + 1;
 }
-//Written by Jack
+//Written by
 void gameover(int winner)
 {
    clear_screen();
@@ -127,7 +127,7 @@ void gameover(int winner)
       }
    }
 }
-//Written by Jack
+//Written by 
 void game(void)
 {
    //Initialize ball
