@@ -95,6 +95,13 @@ void display_string(int line, char* s)
          textbuffer[line][i] = ' ';
 }
 
+void clear_text()
+{
+   int row, j;
+   for(row = 0; row < 4; row++)
+      for(j = 0; j < 16; j++)
+         textbuffer[row][j] = ' ';
+}
 //Displays a 32x32 image
 void display_image(const int x, const uint8_t *data)
 {
@@ -144,6 +151,7 @@ void display_update(void)
       }
    }
 }
+
 //Converts a number to hexadecimal ASCII digits.
 static void num32asc(char* s, int n)
 {
@@ -166,36 +174,36 @@ char *strcopy(char* destination, char* source)
    return start;
 }
 
-void display_screen(const uint8_t *data)
+void update_screen(const uint8_t *data)
 {
    int row, col, bit;
    int c;
-   //Textbuffer has 4 rows and 16 cols
    for(row = 0; row < 4; row++)
    {
       DISPLAY_CMD_MODE;
-      spi_send_recv(0x22); //00100010
+      spi_send_recv(0x22);
       spi_send_recv(row);
       spi_send_recv(0x0);
       spi_send_recv(0x10);
-
       DISPLAY_DATA_MODE;
       for(col = 0; col < 128; col++)
       {
-         spi_send_recv(startscreen[c]);
+         spi_send_recv(screen[row * 128 + col]);
       }
    }
 }
 
-void setPixel(int x, int y) //Not sure which arguments
+void clear_screen(void)
+{
+   int i;
+   for(i = 0; i < 512; i++)
+      screen[i] = 0;
+}
+
+void set_pixel(int x, int y)
 {
    short offset = 0;
    if(y > 0)
-      offset = y/8;
-   gamescreen[offset * 128 + x] << (y - offset * 8);
-}
-
-void display_clear(void)
-{
-
+      offset = y / 8;
+   screen[offset * 128 + x] |= 1 << (y - offset * 8);
 }

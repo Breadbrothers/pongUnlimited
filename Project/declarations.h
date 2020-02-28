@@ -18,17 +18,21 @@ extern const uint8_t const font[128*8];
 extern const uint8_t const icon[128];
 
 //Declare bitmap array containing startscreen
-extern const uint8_t const startscreen[512];
+
 extern uint8_t screenbuffer[512];
 
-//Declare bitmap array containing the game
-extern const uint8_t gamescreen[512];
+extern uint8_t screen[512];
 
 //Declare text buffer for display
 extern char textbuffer[4][16];
 
 //Declare speed of the game for difficulty
 extern int modes;
+
+extern int btn;
+
+//Declare variable to check winner of the game
+extern int winner;
 
 //Declare get buttons, get switches and enable interrupt
 int getbtns(void);

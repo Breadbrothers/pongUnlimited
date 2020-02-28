@@ -5,11 +5,11 @@
 char difficulty[] = "Easy";
 char mode[] = "Singleplayer";
 int timeoutcount = 0;
-int modes = 1;
+int modes = 0;
+int winner;
 
 void user_isr( void )
 {
-   if(modes){
    if(IFS(0) & 0x100)
    {
       IFS(0) = 0;
@@ -17,22 +17,40 @@ void user_isr( void )
    }
    if(timeoutcount == 5)
    {
+      if(modes == 1)
+      {
       display_string(2, difficulty);
       display_string(3, mode);
       display_update();
       display_image(96, icon);
+      }
       timeoutcount = 0;
    }
-   }
+
    return;
+}
+
+void startscreen(void)
+{
+   clear_screen();
+   display_string(2, "Switch=Difficuly");
+   display_string(3, "Buttons=Start");
+   display_update();
+   while(1)
+   {
+      if(getbtns())
+         break;
+   }
 }
 
 void menu(void)
 {
+   int i;
    display_string(0, "PONG");
    display_string(1, "UNLIMITED");
    display_update();
    display_image(96, icon);
+   modes = 1;
    while(1)
    {
       int sw = getsw();

@@ -8,6 +8,7 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "declarations.h"  /* Declatations for these labs */
 #include "objects.h"
+int winner;
 
 int main(void) {
         /*
@@ -54,13 +55,13 @@ int main(void) {
 
 	display_init();
 	init();
-	while(1)
-	{
-		//startscreen(); //Stay until button pressed, show highscore etc
-		menu(); //Stay in menu until button pressed, select mode
-		game(); //Stay in game until gameover
-		//gameover(); //Stay for a while to show score etc
-	}
+
+
+	//startscreen(); //Stay until button pressed, show highscore etc
+	menu(); //Stay in menu until button pressed, select mode
+	game(); //Stay in game until gameover
+	gameover(winner); //Stay for a while to show score etc
+
 
 	return 0;
 }
