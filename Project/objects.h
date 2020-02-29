@@ -1,4 +1,4 @@
-/* Code written by eschmar
+/* Code written by eschmar (github)
 ** 2016
 */
 #ifndef TYPES_H_
