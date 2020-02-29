@@ -1,7 +1,7 @@
-/* mipslabmain.c
+/* main.c
    This file written 2015 by Axel Isaksson,
    modified 2015, 2017 by F Lundevall
-   Latest update 2017-04-21 by F Lundevall
+   Latest update 2020-02-29 by J Webb
    For copyright and licensing, see file COPYING */
 
 #include <stdint.h>   /* Declarations of uint_32 and the like */
@@ -57,7 +57,7 @@ int main(void) {
 	init();
 
 
-	//startscreen(); //Stay until button pressed, show highscore etc
+	startscreen(); //Stay until button pressed, show highscore etc
 	menu(); //Stay in menu until button pressed, select mode
 	game(); //Stay in game until gameover
 	gameover(winner); //Stay for a while to show score etc

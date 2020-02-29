@@ -1,3 +1,7 @@
+/* menu.c
+   This file was written 2020 by Jack Webb and Amir Safizadeh,
+   Last update 2020-02-28 */
+
 #include <stdint.h>
 #include <pic32mx.h>
 #include "declarations.h"
@@ -127,7 +131,7 @@ void gameover(int winner)
       }
    }
 }
-//Written by 
+//Written by
 void game(void)
 {
    //Initialize ball

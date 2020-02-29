@@ -8,6 +8,7 @@ uint8_t spi_send_recv(uint8_t data);
 void menu(void);
 void init(void);
 void quicksleep(int cyc);
+
 //Declaration for other functions
 
 
@@ -17,18 +18,16 @@ extern const uint8_t const font[128*8];
 //Declare bitmap array containing icon
 extern const uint8_t const icon[128];
 
-//Declare bitmap array containing startscreen
-
-extern uint8_t screenbuffer[512];
-
+//Declare bitmap array containing screen
 extern uint8_t screen[512];
 
 //Declare text buffer for display
 extern char textbuffer[4][16];
 
-//Declare speed of the game for difficulty
+//Variable to check if menu in or not
 extern int modes;
 
+//Variable to check if button pressed, not used
 extern int btn;
 
 //Declare variable to check winner of the game

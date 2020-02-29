@@ -1,6 +1,10 @@
-#include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include "declarations.h"  /* Declatations for these labs */
+/* io.c
+   This file was written 2020 by Jack Webb and Amir Safizadeh,
+   Last update 2020-02-27 */
+
+#include <stdint.h>
+#include <pic32mx.h>
+#include "declarations.h"
 #define TMR2PERIOD ((80000000 / 256) / 10)
 
 void init( void )
