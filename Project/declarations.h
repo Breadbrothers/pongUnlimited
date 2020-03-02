@@ -30,7 +30,7 @@ extern const uint8_t  const bread_icon[128];
 //Declare speed of the game for difficulty
 extern int modes;
 
-extern int btn;
+extern int sw;
 
 
 //Declare variable to check winner of the game

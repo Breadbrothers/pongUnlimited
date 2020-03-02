@@ -48,6 +48,7 @@ void set_ball(Ball b)
    set_pixel(b.x, b.y + 1);
    set_pixel(b.x + 1, b.y + 1);
 }
+
 //ball movment
 void move_ball(void)
 {
@@ -56,6 +57,9 @@ void move_ball(void)
    if(ball.x == 0)
    {
       directionRight = !directionRight;
+      ball.x = 63;
+      ball.y = 15;
+      set_ball(ball);
       scoreP2++;
       if(scoreP2 == 1)
          PORTESET = 1;
@@ -68,6 +72,9 @@ void move_ball(void)
    if(ball.x == 126)
    {
       directionRight = !directionRight;
+      ball.x = 63;
+      ball.y = 15;
+      set_ball(ball);
       scoreP1++;
       if(scoreP1 == 1)
          PORTESET = 128;
@@ -249,6 +256,8 @@ void game(void)
    paddle2.speed = 10;
    paddle2.score = 0;
 
+   int sw = getsw();
+
    //Set startpoint for ball and paddles
    set_ball(ball);
    set_paddle(paddle1);
@@ -265,18 +274,18 @@ void game(void)
       //any button is pressed to move the paddles
 
       btns = getbtns();
-      if(getsw() & 0x2)           //Medium
+      if(sw & 0x2)           //Medium
        dif = 0xffff;
 
-      if(btns & (getsw() & 0x8))
+      if(btns & (sw & 0x8))
          move_paddle(btns);
 
-      if((getsw() & 0x8) == 0)        //Singleplayer
+      if((sw & 0x8) == 0)        //Singleplayer
       single_palyer(btns);
       else
       move_paddle(btns);
 
-       if(getsw() & 0x4)              //Hard
+       if(sw & 0x4)              //Hard
        {
         dif = 0xf000;
         hard();
