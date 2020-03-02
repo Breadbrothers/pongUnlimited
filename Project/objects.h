@@ -14,9 +14,9 @@ typedef struct Ball
    short x, y, speedX, speedY;
 } Ball;
 
-typedef struct Obsticle
+typedef struct Obstacle
 {
    short x, y;
-} Obsticle;
+} Obstacle;
 
 #endif //TYPES_H_

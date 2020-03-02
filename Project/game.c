@@ -1,7 +1,3 @@
-/* menu.c
-   This file was written 2020 by Jack Webb and Amir Safizadeh,
-   Last update 2020-02-28 */
-
 #include <stdint.h>
 #include <pic32mx.h>
 #include "declarations.h"
@@ -10,6 +6,7 @@
 Ball ball;
 Paddle paddle1;
 Paddle paddle2;
+Obstacle obstacle;
 
 //Other variable initializations
 int directionRight   = 1;
@@ -17,8 +14,9 @@ int directionUp      = 1;
 int btns;
 int scoreP1;
 int scoreP2;
+int dif = 0xffff * 2;
 
-//Written by
+// the paddles movment
 void move_paddle(int btns)
 {
    if((paddle2.y != 24) && (btns & 0x1))
@@ -31,7 +29,7 @@ void move_paddle(int btns)
    if((paddle1.y != 0) && (btns & 0x8))
       paddle1.y = paddle1.y - 1;
 }
-//Written by
+// the paddles size
 void set_paddle(Paddle p)
 {
    set_pixel(p.x, p.y);
@@ -42,7 +40,7 @@ void set_paddle(Paddle p)
    set_pixel(p.x, p.y + 5);
    set_pixel(p.x, p.y + 6);
 }
-//Written by
+//the ball size
 void set_ball(Ball b)
 {
    set_pixel(b.x, b.y);
@@ -50,7 +48,7 @@ void set_ball(Ball b)
    set_pixel(b.x, b.y + 1);
    set_pixel(b.x + 1, b.y + 1);
 }
-//Written by
+//ball movment
 void move_ball(void)
 {
    if((ball.y == 1) || (ball.y == 31))
@@ -105,7 +103,7 @@ void move_ball(void)
    else if(!directionUp)
       ball.y = ball.y + 1;
 }
-//Written by
+
 void gameover(int winner)
 {
    clear_screen();
@@ -131,7 +129,106 @@ void gameover(int winner)
       }
    }
 }
-//Written by
+
+
+void single_palyer( int btns){
+  if(ball.y < 24)
+paddle2.y = ball.y;
+
+if((paddle1.y != 24) && (btns & 0x4))
+   paddle1.y = paddle1.y + 1;
+if((paddle1.y != 0) && (btns & 0x8))
+   paddle1.y = paddle1.y - 1;
+}
+
+void set_obstacle(){
+  int i,j;
+  for(j = 61 ; j <= 62; j++){
+   for(i = 6; i < 14; i++){
+     set_pixel(obstacle.x = j, obstacle.y = i);
+     set_pixel(obstacle.x = j, obstacle.y = (14 + i));
+   }
+  }
+}
+
+void hard()
+{
+   set_obstacle();
+
+   if((ball.y == 1) || (ball.y == 31))
+      directionUp = !directionUp;
+   if(ball.x == 0)
+   {
+      directionRight = !directionRight;
+      scoreP2++;
+      if(scoreP2 == 1)
+      PORTESET = 1;
+      if(scoreP2 == 2)
+      PORTESET = 2;
+      if(scoreP2 == 3)
+      PORTESET = 4;
+   }
+
+   if(ball.x == 126)
+   {
+      directionRight = !directionRight;
+      scoreP1++;
+      if(scoreP1 == 1)
+         PORTESET = 128;
+      if(scoreP1 == 2)
+         PORTESET = 64;
+      if(scoreP1 == 3)
+         PORTESET = 32;
+   }
+
+   if((ball.x == paddle1.x) && (ball.y == paddle1.y) ||
+   (ball.x == paddle1.x) && (ball.y == paddle1.y + 1) ||
+   (ball.x == paddle1.x) && (ball.y == paddle1.y + 2) ||
+   (ball.x == paddle1.x) && (ball.y == paddle1.y + 3) ||
+   (ball.x == paddle1.x) && (ball.y == paddle1.y + 4) ||
+   (ball.x == paddle1.x) && (ball.y == paddle1.y + 5) ||
+   (ball.x == paddle1.x) && (ball.y == paddle1.y + 6) ||
+
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y) ||
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y + 1) ||
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y + 2) ||
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y + 3) ||
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y + 4) ||
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y + 5) ||
+   (ball.x + 1 == paddle2.x) && (ball.y == paddle2.y + 6)||
+
+   (ball.x + 1 == 61 ) && (ball.y == 6) ||
+   (ball.x + 1 == 61) && (ball.y == 7) ||
+   (ball.x + 1 == 61) && (ball.y == 8) ||
+   (ball.x + 1 == 61) && (ball.y == 9) ||
+   (ball.x + 1 == 61) && (ball.y == 10) ||
+   (ball.x + 1 == 61) && (ball.y == 11) ||
+   (ball.x + 1 == 61) && (ball.y == 12)||
+   (ball.x + 1 == 61) && (ball.y == 13) ||
+
+   (ball.x == 62 ) && (ball.y == 20) ||
+   (ball.x == 62) && (ball.y == 21) ||
+   (ball.x == 62) && (ball.y == 22) ||
+   (ball.x == 62) && (ball.y == 23) ||
+   (ball.x == 62) && (ball.y == 24) ||
+   (ball.x == 62) && (ball.y == 25) ||
+   (ball.x == 62) && (ball.y == 26) ||
+   (ball.x == 62) && (ball.y == 27))
+
+   directionRight = !directionRight;
+
+   if(directionRight)
+      ball.x = ball.x + 1;
+   else if(!directionRight)
+      ball.x = ball.x - 1;
+   if(directionUp)
+      ball.y = ball.y - 1;
+   else if(!directionUp)
+      ball.y = ball.y + 1;
+
+
+}
+
 void game(void)
 {
    //Initialize ball
@@ -166,18 +263,38 @@ void game(void)
 
       //After removing the old stuff move ball and check if
       //any button is pressed to move the paddles
-      move_ball();
+
       btns = getbtns();
-      if(btns)
+      if(getsw() & 0x2)           //Medium
+       dif = 0xffff;
+
+      if(btns & (getsw() & 0x8))
          move_paddle(btns);
+
+      if((getsw() & 0x8) == 0)        //Singleplayer
+      single_palyer(btns);
+      else
+      move_paddle(btns);
+
+       if(getsw() & 0x4)              //Hard
+       {
+        dif = 0xf000;
+        hard();
+       }
+       else
+        move_ball();
+
       set_ball(ball);
       set_paddle(paddle1);
       set_paddle(paddle2);
 
+
+
+
       //Small delay to make game move smooth without having
       //to use timers or such
       int i;
-      for(i = 0; i < 0xFFFF; i++);
+      for(i = 0; i < dif; i++);
 
       //After everything is done update the screen
       update_screen();

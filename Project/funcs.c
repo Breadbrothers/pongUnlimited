@@ -1,5 +1,5 @@
 /**   Contents of this file is based on the file "mipslabwork.c"
-*     Last update by J Webb 2020-02-29
+*     2015 by F Lundevall
 */
 
 #include <stdint.h>
@@ -174,6 +174,8 @@ char *strcopy(char* destination, char* source)
    return start;
 }
 
+
+//update the whole screen
 void update_screen(const uint8_t *data)
 {
    int row, col, bit;
@@ -193,6 +195,7 @@ void update_screen(const uint8_t *data)
    }
 }
 
+//it will clear the screen array
 void clear_screen(void)
 {
    int i;
@@ -200,10 +203,28 @@ void clear_screen(void)
       screen[i] = 0;
 }
 
+// light one pixel with the coordinants x and y
 void set_pixel(int x, int y)
 {
    short offset = 0;
    if(y > 0)
       offset = y / 8;
    screen[offset * 128 + x] |= 1 << (y - offset * 8);
+}
+
+
+
+
+void delay( int ms )
+{
+  int i;
+  while( ms > 0 )
+  {
+    ms --;
+    /* Executing the following for loop should take 1 ms */
+     for( i = 0; i < 4711; i = i + 1)
+    {
+      /* Do nothing. */
+    }
+   }
 }

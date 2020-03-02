@@ -1,10 +1,6 @@
-/* menu.c
-   This file was written 2020 by Jack Webb and Amir Safizadeh,
-   Last update 2020-02-27 */
-
-#include <stdint.h>
-#include <pic32mx.h>
-#include "declarations.h"
+#include <stdint.h>   /* Declarations of uint_32 and the like */
+#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
+#include "declarations.h"  /* Declatations for these labs */
 
 char difficulty[] = "Easy";
 char mode[] = "Singleplayer";
@@ -34,18 +30,27 @@ void user_isr( void )
    return;
 }
 
+void startscreen1(void){
+  clear_screen();
+  display_string(1, " BreadBrothers");
+  display_string(2, "    Presents");
+  display_update();
+  delay(4000);
+  clear_text();
+}
+
 void startscreen(void)
 {
+  int i;
    clear_screen();
-   display_string(2, "Switch=Difficuly");
-   display_string(3, "Buttons=Start");
+   display_string(1, "Switch=Difficuly");
+   display_string(2, "Buttons=Start");
    display_update();
-   while(1)
-   {
-      if(getbtns())
-         break;
-   }
+   delay(5000);
+   clear_text();
 }
+
+
 
 void menu(void)
 {
@@ -53,9 +58,8 @@ void menu(void)
    display_string(0, "PONG");
    display_string(1, "UNLIMITED");
    display_update();
-   display_image(96, icon);
+   display_image(96,icon);
    modes = 1;
-   while(getbtns()){} //To make sure it does not skip the menu
    while(1)
    {
       int sw = getsw();
