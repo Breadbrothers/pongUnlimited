@@ -30,23 +30,33 @@ void user_isr( void )
    return;
 }
 
-void startscreen1(void){
-  clear_screen();
-  display_string(1, " BreadBrothers");
-  display_string(2, "    Presents");
-  display_update();
-  delay(4000);
-  clear_text();
-}
-
 void startscreen(void)
 {
-  int i;
+   clear_screen();
+   display_string(1, " BreadBrothers");
+   display_string(2, "    Presents");
+   display_update();
+   delay(3000);
+   clear_text();
+}
+
+void startscreen2(void)
+{
    clear_screen();
    display_string(1, "Switch=Difficuly");
    display_string(2, "Buttons=Start");
    display_update();
-   delay(5000);
+   delay(3000);
+   clear_text();
+}
+
+void startscreen1(void)
+{
+   clear_screen();
+   display_string(1, "  PONG");
+   display_string(2, "    UNLIMITED");
+   display_update();
+   delay(3000);
    clear_text();
 }
 

@@ -56,8 +56,9 @@ int main(void) {
 	display_init();
 	init();
 
-  	startscreen1();
-	startscreen(); //Stay until button pressed, show highscore etc
+  	startscreen();
+	startscreen1();
+	startscreen2(); //Stay until button pressed, show highscore etc
 	menu(); //Stay in menu until button pressed, select mode
 	game(); //Stay in game until gameover
 	gameover(winner); //Stay for a while to show score etc

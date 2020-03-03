@@ -32,6 +32,8 @@ extern int modes;
 
 extern int sw;
 
+void startscreen1(void);
+void startsceen2(void);
 
 //Declare variable to check winner of the game
 extern int winner;

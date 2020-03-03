@@ -120,18 +120,18 @@ void gameover(int winner)
       if(winner == 1)
       {
          display_string(0, "CONGRATULATIONS");
-         display_string(1, "PLAYER 1 WON! :)");
-         display_string(2, "TOO BAD PLAYER 2");
-         display_string(3, "GET BETTER SOON!");
+         display_string(1, "YOU PLAYED YOURSELF :)");
+         display_string(2, "GG");
+         display_string(3, "  Better luck next");
          display_update();
       }
 
       if(winner == 2)
       {
          display_string(0, "CONGRATULATIONS");
-         display_string(1, "PLAYER 2 WON");
-         display_string(2, "TOO BAD PLAYER 1");
-         display_string(3, "Better luck next time");
+         display_string(1, "YOU PLAYED YOURSELF :)");
+         display_string(2, "GG");
+         display_string(3, "  Better luck next");
          display_update();
       }
    }
@@ -167,6 +167,9 @@ void hard()
    if(ball.x == 0)
    {
       directionRight = !directionRight;
+      ball.x = 63;
+      ball.y = 15;
+      set_ball(ball);
       scoreP2++;
       if(scoreP2 == 1)
       PORTESET = 1;
@@ -179,6 +182,9 @@ void hard()
    if(ball.x == 126)
    {
       directionRight = !directionRight;
+      ball.x = 63;
+      ball.y = 15;
+      set_ball(ball);
       scoreP1++;
       if(scoreP1 == 1)
          PORTESET = 128;
